@@ -10,13 +10,17 @@ import (
 	"guest/storage"
 	"io/ioutil"
 	"strings"
+
+	"github.com/imdario/mergo"
 )
 
 type Knock interface {
 	Validate() error
 	Run() (*Result, error)
 	RunScript(externalScripts map[string]string, vars map[string]string, scriptType string) error
+	PatchOptions(handOptions interface{}) error
 	ApplyVariables(vars map[string]string) error
+	GetType() string
 	GetExports() map[string]interface{}
 	GetHandExports() map[string]interface{}
 }
@@ -139,6 +143,30 @@ func (k *KnockBase) RunScript(
 	return nil
 }
 
+func (k *KnockBase) PatchOptions(handOptions interface{}) error {
+	patch := make(map[string]interface{})
+	patch["options"] = handOptions
+
+	mapped := make(map[string]interface{})
+
+	err := settings.ReParse(k.custom, &mapped)
+	if err != nil {
+		return err
+	}
+
+	err = mergo.Merge(&mapped, patch)
+	if err != nil {
+		return err
+	}
+
+	err = settings.ReParse(mapped, &k.custom)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (k *KnockBase) ApplyVariables(vars map[string]string) error {
 	data, err := settings.Stringify(k.custom, settings.FormatJson)
 	if err != nil {
@@ -159,8 +187,8 @@ func (k *KnockBase) ApplyVariables(vars map[string]string) error {
 	return nil
 }
 
-func (k *KnockBase) GetExports() map[string]interface{} {
-	return map[string]interface{}{}
+func (k *KnockBase) GetType() string {
+	return k.Type
 }
 
 func executeCore(
