@@ -23,7 +23,15 @@ func (w *Workspace) Knock(path string, externalVars map[string]string) (*knock.R
 		return nil, err
 	}
 
-	err = k.RunScript(vars, "before")
+	externalScripts := make(map[string]string)
+
+	for _, folder := range folders {
+		for scriptType, scriptPath := range folder.Scripts {
+			externalScripts[scriptType] = scriptPath
+		}
+	}
+
+	err = k.RunScript(externalScripts, vars, "before")
 	if err != nil {
 		return nil, err
 	}

@@ -8,6 +8,7 @@ type Folder struct {
 	Description string `json:"description"`
 
 	Variables   map[string]string      `json:"variables,omitempty" yaml:"variables,omitempty"`
+	Scripts     map[string]string      `json:"scripts,omitempty" yaml:"scripts,omitempty"`
 	HandOptions map[string]interface{} `json:"options,omitempty" yaml:"options,omitempty"`
 }
 

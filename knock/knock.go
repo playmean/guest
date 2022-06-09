@@ -15,7 +15,7 @@ import (
 type Knock interface {
 	Validate() error
 	Run() (*Result, error)
-	RunScript(vars map[string]string, scriptType string) error
+	RunScript(externalScripts map[string]string, vars map[string]string, scriptType string) error
 	ApplyVariables(vars map[string]string) error
 	GetExports() map[string]interface{}
 	GetHandExports() map[string]interface{}
@@ -81,12 +81,20 @@ func (k *KnockBase) Run() (*Result, error) {
 	return nil, errors.New("knock.Run not implemented")
 }
 
-func (k *KnockBase) RunScript(vars map[string]string, scriptType string) error {
+func (k *KnockBase) RunScript(
+	externalScripts map[string]string,
+	vars map[string]string,
+	scriptType string,
+) error {
 	scriptPath, ok := k.Scripts[scriptType]
 	if !ok {
-		return nil
+		scriptPath, ok = externalScripts[scriptType]
+		if !ok {
+			return nil
+		}
 	}
 
+	// TODO 10.06.2022 load scripts from URL and inline
 	if !storage.Exists(scriptPath, k.virtualFs) {
 		return fmt.Errorf("script with type '%s' not found: %s", scriptType, scriptPath)
 	}
