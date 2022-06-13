@@ -43,15 +43,15 @@ func (w *Workspace) writeSettings() error {
 }
 
 func (w *Workspace) writeMisc() error {
-	ignoreFile, err := w.VirtualFs.Create(".guest/.gitignore")
+	// TODO 13.06.2022 check if file exists
+	ignoreFile, err := w.VirtualFs.Create(".gitignore")
 	if err != nil {
 		return err
 	}
 
 	defer ignoreFile.Close()
 
-	// TODO use .local directories
-	_, err = ignoreFile.Write([]byte(".local/"))
+	_, err = ignoreFile.Write([]byte("*.local.*"))
 	if err != nil {
 		return err
 	}

@@ -23,12 +23,17 @@ func (w *Workspace) loadFoldersRecursively(endPath string, folders *[]*Folder) e
 }
 
 func (w *Workspace) loadFolderForPath(endPath string) (*Folder, error) {
-	folderSettingsPath, err := storage.ScanParent(endPath, w.VirtualFs, ".guest.json")
+	folderPath, err := storage.ScanParent(endPath, w.VirtualFs, ".guest.json")
 	if err != nil {
 		return nil, err
 	}
 
-	f, err := w.VirtualFs.Open(folderSettingsPath)
+	localFolderPath, _ := storage.ScanParent(endPath, w.VirtualFs, ".local.json")
+	if localFolderPath != "" {
+		folderPath = localFolderPath
+	}
+
+	f, err := w.VirtualFs.Open(folderPath)
 	if err != nil {
 		return nil, err
 	}
