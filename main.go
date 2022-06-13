@@ -59,6 +59,12 @@ func main() {
 				},
 				Action: commands.Knock,
 			},
+			{
+				Name:      "ui",
+				Usage:     "start web ui",
+				UsageText: "guest ui [PORT]",
+				Action:    commands.StartUI,
+			},
 		},
 	}
 

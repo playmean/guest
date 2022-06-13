@@ -53,6 +53,8 @@ func FromFile(path string, vfs storage.Storage) (Knock, error) {
 	return FromData(vfs, data, settings.FormatJson)
 }
 
+// TODO 10.06.2022 import from openapi
+
 func FromData(vfs storage.Storage, data []byte, format settings.SettingsFormat) (Knock, error) {
 	base := new(KnockBase)
 
