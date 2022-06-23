@@ -1,0 +1,19 @@
+tabWidth: 4
+semi: true
+singleQuote: true
+printWidth: 90
+htmlWhitespaceSensitivity: 'css'
+importOrder:
+  [
+    'css$',
+    '^virtual:',
+    "^[a-z]",
+    '^@\w',
+    '^@/components/',
+    '^@/',
+    '^\.{2}/',
+    '^\./',
+    '^~(.*)$',
+  ]
+importOrderSeparation: true
+importOrderSortSpecifiers: true
