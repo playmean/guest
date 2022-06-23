@@ -1,0 +1,4 @@
+[submodule "ui/frontend"]
+	path = ui/frontend
+	url = git@github.com:playmean/guest.git
+	branch = frontend
