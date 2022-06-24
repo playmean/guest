@@ -31,14 +31,9 @@ func StartUI(c *cli.Context) error {
 }
 
 func resolveUIPort(c *cli.Context, defaultPort int) (int, error) {
-	portArg := c.Args().First()
-	if portArg != "" {
-		port, err := strconv.Atoi(portArg)
-		if err != nil {
-			return defaultPort, err
-		}
-
-		return port, nil
+	portArg := c.Int("port")
+	if portArg != 0 {
+		return portArg, nil
 	}
 
 	return defaultPort, nil

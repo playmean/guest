@@ -63,8 +63,15 @@ func main() {
 			{
 				Name:      "ui",
 				Usage:     "start web ui",
-				UsageText: "guest ui [PORT]",
-				Action:    commands.StartUI,
+				UsageText: "guest ui options [PORT]",
+				Flags: []cli.Flag{
+					&cli.IntFlag{
+						Name:    "port",
+						Aliases: []string{"p"},
+						Usage:   "port for web server",
+					},
+				},
+				Action: commands.StartUI,
 			},
 		},
 	}
