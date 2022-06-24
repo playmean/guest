@@ -2,7 +2,7 @@ package commands
 
 import (
 	"fmt"
-	"strconv"
+	"log"
 
 	"github.com/playmean/guest/ui"
 
@@ -10,7 +10,17 @@ import (
 )
 
 func StartUI(c *cli.Context) error {
-	s := ui.NewServer()
+	vars, err := resolveVariables(c)
+	if err != nil {
+		return err
+	}
+
+	w, err := resolveWorkspace(c, []string{})
+	if err != nil {
+		log.Println(err)
+	}
+
+	s := ui.NewServer(w, vars)
 
 	port, err := resolveUIPort(c, 3080)
 	if err != nil {

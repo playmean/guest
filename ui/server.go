@@ -6,16 +6,24 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
+	"github.com/playmean/guest/workspace"
 )
 
 //go:embed frontend/dist/*
 var embedded embed.FS
 
 type Server struct {
-	app *fiber.App
+	app          *fiber.App
+	workspace    *workspace.Workspace
+	externalVars map[string]string
 }
 
-func NewServer() *Server {
+// TODO 24.06.2022 extend from error
+type ServerError struct {
+	Error string `json:"error"`
+}
+
+func NewServer(w *workspace.Workspace, externalVars map[string]string) *Server {
 	app := fiber.New()
 	app.Use("/", filesystem.New(filesystem.Config{
 		Root:       http.FS(embedded),
@@ -24,6 +32,12 @@ func NewServer() *Server {
 
 	s := new(Server)
 	s.app = app
+	s.workspace = w
+	s.externalVars = externalVars
+
+	api := app.Group("/api")
+	api.Get("/version", s.methodGetVersion)
+	api.Get("/workspace", s.methodGetWorkspace)
 
 	return s
 }

@@ -14,6 +14,8 @@ import (
 //go:embed assets/*
 var embedded embed.FS
 
+//go:generate go run tools/typesgen.go
+
 func main() {
 	// scanner := bufio.NewScanner(os.Stdin)
 	// for scanner.Scan() {
