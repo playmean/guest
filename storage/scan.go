@@ -14,6 +14,7 @@ type ScanOptions struct {
 	Ignore             []string
 	Suffix             string
 	IncludeDirectories bool
+	MarkDirectories    bool
 	// TODO fix a weird thing (pointer)
 	Depth *int
 }
@@ -39,15 +40,17 @@ func ScanDirectory(srcDir string, srcFs billy.Filesystem, opts *ScanOptions) ([]
 			continue
 		}
 
-		fileInfo, err := srcFs.Stat(path)
+		pathInfo, err := srcFs.Stat(path)
 		if err != nil {
 			return nil, err
 		}
 
-		switch fileInfo.Mode() & os.ModeType {
+		switch pathInfo.Mode() & os.ModeType {
 		case os.ModeDir:
 			if opts.IncludeDirectories {
-				if len(opts.Suffix) > 0 && strings.HasSuffix(path, opts.Suffix) {
+				if opts.MarkDirectories {
+					paths = append(paths, path+"/")
+				} else {
 					paths = append(paths, path)
 				}
 			}
