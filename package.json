@@ -10,7 +10,9 @@
     },
     "dependencies": {
         "@vueuse/core": "^8.7.5",
+        "floating-vue": "^2.0.0-beta.17",
         "highlight.js": "^11.5.1",
+        "monaco-editor": "^0.33.0",
         "normalize.css": "^8.0.1",
         "pinia": "^2.0.14",
         "vue": "^3.2.37"

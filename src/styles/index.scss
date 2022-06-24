@@ -6,12 +6,12 @@ body {
     -webkit-tap-highlight-color: transparent;
 
     ::-moz-selection {
-        color: white;
-        background: black;
+        @apply bg-guest-accent;
     }
 
     ::selection {
-        color: white;
-        background: black;
+        @apply bg-guest-accent;
     }
+
+    @apply bg-guest-dark text-white;
 }
