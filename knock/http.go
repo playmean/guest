@@ -2,11 +2,12 @@ package knock
 
 import (
 	"fmt"
-	"guest/body"
-	"guest/hand"
-	"guest/settings"
 	"io/ioutil"
 	"time"
+
+	"github.com/playmean/guest/body"
+	"github.com/playmean/guest/hand"
+	"github.com/playmean/guest/settings"
 )
 
 type HttpKnock struct {

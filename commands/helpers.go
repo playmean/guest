@@ -2,10 +2,11 @@ package commands
 
 import (
 	"fmt"
-	"guest/storage"
-	"guest/workspace"
 	"path/filepath"
 	"strings"
+
+	"github.com/playmean/guest/storage"
+	"github.com/playmean/guest/workspace"
 
 	"github.com/urfave/cli/v2"
 	"golang.org/x/exp/slices"

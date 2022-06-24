@@ -1,8 +1,9 @@
 package modules
 
 import (
-	"guest/settings"
 	"log"
+
+	"github.com/playmean/guest/settings"
 )
 
 type FormatModule struct{}

@@ -1,7 +1,7 @@
 package workspace
 
 import (
-	"guest/storage"
+	"github.com/playmean/guest/storage"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/cache"

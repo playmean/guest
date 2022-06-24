@@ -1,6 +1,6 @@
 package workspace
 
-import "guest/settings"
+import "github.com/playmean/guest/settings"
 
 func (w *Workspace) Save() error {
 	err := w.VirtualFs.MkdirAll(".guest", 0655)

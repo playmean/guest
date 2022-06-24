@@ -1,11 +1,12 @@
 package workspace
 
 import (
-	"guest/settings"
-	"guest/storage"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
+
+	"github.com/playmean/guest/settings"
+	"github.com/playmean/guest/storage"
 )
 
 func (w *Workspace) loadFoldersRecursively(endPath string, folders *[]*Folder) error {

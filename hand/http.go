@@ -3,14 +3,15 @@ package hand
 import (
 	"bytes"
 	"fmt"
-	"guest/body"
-	"guest/settings"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/playmean/guest/body"
+	"github.com/playmean/guest/settings"
 
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"

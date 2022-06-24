@@ -2,7 +2,8 @@ package core
 
 import (
 	"fmt"
-	"guest/modules"
+
+	"github.com/playmean/guest/modules"
 
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"

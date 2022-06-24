@@ -1,6 +1,6 @@
 package body
 
-import "guest/settings"
+import "github.com/playmean/guest/settings"
 
 type Body interface {
 	GetType() string

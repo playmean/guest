@@ -2,9 +2,10 @@ package commands
 
 import (
 	"fmt"
-	"guest/storage"
-	"guest/workspace"
 	"path/filepath"
+
+	"github.com/playmean/guest/storage"
+	"github.com/playmean/guest/workspace"
 
 	"github.com/urfave/cli/v2"
 )

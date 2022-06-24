@@ -1,4 +1,4 @@
-module guest
+module github.com/playmean/guest
 
 go 1.18
 
@@ -8,6 +8,7 @@ require (
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/gofiber/fiber/v2 v2.34.0
 	github.com/gookit/color v1.5.0
+	github.com/tkrajina/typescriptify-golang-structs v0.1.7
 	github.com/urfave/cli/v2 v2.5.1
 	github.com/yuin/gopher-lua v0.0.0-20220428201426-ff834ae8486b
 	golang.org/x/exp v0.0.0-20220428152302-39d4317da171
@@ -20,6 +21,7 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
+	github.com/tkrajina/go-reflector v0.5.5 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.37.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect

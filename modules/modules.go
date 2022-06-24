@@ -1,6 +1,6 @@
 package modules
 
-import "guest/settings"
+import "github.com/playmean/guest/settings"
 
 type ModuleData struct {
 	KnockType    string

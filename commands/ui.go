@@ -2,8 +2,9 @@ package commands
 
 import (
 	"fmt"
-	"guest/ui"
 	"strconv"
+
+	"github.com/playmean/guest/ui"
 
 	"github.com/urfave/cli/v2"
 )

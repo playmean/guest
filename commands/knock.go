@@ -2,12 +2,13 @@ package commands
 
 import (
 	"fmt"
-	"guest/body"
-	"guest/knock"
-	"guest/settings"
-	"guest/workspace"
 	"os"
 	"strings"
+
+	"github.com/playmean/guest/body"
+	"github.com/playmean/guest/knock"
+	"github.com/playmean/guest/settings"
+	"github.com/playmean/guest/workspace"
 
 	"github.com/alecthomas/chroma/quick"
 	"github.com/gookit/color"

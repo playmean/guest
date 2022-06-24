@@ -2,7 +2,8 @@ package workspace
 
 import (
 	"fmt"
-	"guest/storage"
+
+	"github.com/playmean/guest/storage"
 )
 
 type ExportOptions struct {

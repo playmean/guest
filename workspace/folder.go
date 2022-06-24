@@ -1,7 +1,7 @@
 package workspace
 
 import (
-	"guest/settings"
+	"github.com/playmean/guest/settings"
 )
 
 type Folder struct {

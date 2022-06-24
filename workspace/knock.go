@@ -1,8 +1,9 @@
 package workspace
 
 import (
-	"guest/knock"
 	"path/filepath"
+
+	"github.com/playmean/guest/knock"
 
 	"github.com/imdario/mergo"
 )

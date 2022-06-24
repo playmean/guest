@@ -1,8 +1,9 @@
 package debug
 
 import (
-	"guest/settings"
 	"log"
+
+	"github.com/playmean/guest/settings"
 )
 
 func PrintInterface(data ...interface{}) {

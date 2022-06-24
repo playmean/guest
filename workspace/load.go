@@ -1,8 +1,9 @@
 package workspace
 
 import (
-	"guest/settings"
 	"io/ioutil"
+
+	"github.com/playmean/guest/settings"
 )
 
 func (w *Workspace) Load() error {

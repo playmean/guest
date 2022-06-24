@@ -3,9 +3,10 @@ package main
 import (
 	"embed"
 	"fmt"
-	"guest/commands"
-	"guest/storage"
 	"os"
+
+	"github.com/playmean/guest/commands"
+	"github.com/playmean/guest/storage"
 
 	"github.com/urfave/cli/v2"
 )

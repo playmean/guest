@@ -3,13 +3,14 @@ package knock
 import (
 	"errors"
 	"fmt"
-	"guest/core"
-	"guest/hand"
-	"guest/modules"
-	"guest/settings"
-	"guest/storage"
 	"io/ioutil"
 	"strings"
+
+	"github.com/playmean/guest/core"
+	"github.com/playmean/guest/hand"
+	"github.com/playmean/guest/modules"
+	"github.com/playmean/guest/settings"
+	"github.com/playmean/guest/storage"
 
 	"github.com/imdario/mergo"
 )

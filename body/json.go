@@ -1,7 +1,7 @@
 package body
 
 import (
-	"guest/settings"
+	"github.com/playmean/guest/settings"
 )
 
 type JsonBody struct {
