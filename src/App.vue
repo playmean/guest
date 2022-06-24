@@ -1,26 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onBeforeMount } from 'vue';
 
-import VInput from './components/VInput.vue';
-import VLink from './components/VLink.vue';
-import InitialLayout from './layouts/InitialLayout.vue';
+import { toRefs } from '@vueuse/core';
 
-const repoPath = ref('');
+import { useWorkspace } from './store/workspace';
+import NoWorkspaceView from './views/NoWorkspaceView.vue';
+
+const workspace = useWorkspace();
+const { workspaceLoaded, currentWorkspace } = toRefs(workspace);
+
+onBeforeMount(async () => {
+    await workspace.load();
+});
 </script>
 
 <template>
-    <initial-layout>
-        <div class="font-semibold select-none">Open workspace</div>
-        <v-input
-            v-model="repoPath"
-            class="mt-4"
-            label="git"
-            shortcut="return"
-            placeholder="..."
-        />
-
-        <template #or>
-            <v-link class="text-sm" href="new">Create new</v-link>
-        </template>
-    </initial-layout>
+    <no-workspace-view v-if="workspaceLoaded && !currentWorkspace" />
+    <div v-else-if="!workspaceLoaded">loading...</div>
 </template>
