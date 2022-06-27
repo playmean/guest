@@ -1,6 +1,8 @@
 package body
 
-import "github.com/playmean/guest/settings"
+import (
+	"github.com/playmean/guest/settings"
+)
 
 type Body interface {
 	GetType() string
@@ -20,19 +22,15 @@ func (b *BodyBase) GetType() string {
 }
 
 func (b *BodyBase) GetContent() []byte {
-	stringContent, ok := b.Content.(string)
-	if ok {
-		return []byte(stringContent)
-	}
-
-	bytesContent, ok := b.Content.([]byte)
-	if ok {
-		return bytesContent
-	}
-
-	bytesContent, err := settings.Stringify(b.Content, settings.FormatJson)
-	if err == nil {
-		return bytesContent
+	switch raw := b.Content.(type) {
+	case string:
+		return []byte(raw)
+	case []byte:
+		return raw
+	default:
+		if bytesContent, err := settings.Stringify(b.Content, settings.FormatJson); err == nil {
+			return bytesContent
+		}
 	}
 
 	return nil
