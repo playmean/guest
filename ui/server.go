@@ -45,6 +45,8 @@ func NewServer(w *workspace.Workspace, externalVars map[string]string) *Server {
 	api := app.Group("/api")
 	api.Get("/version", s.methodGetVersion)
 	api.Get("/workspace", s.methodGetWorkspace)
+	api.Put("/workspace", s.methodOpenWorkspace)
+	api.Post("/workspace", s.methodCreateWorkspace)
 
 	signal.Notify(s.osSignal, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
 

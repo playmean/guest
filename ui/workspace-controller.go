@@ -2,17 +2,19 @@ package ui
 
 import (
 	"net/http"
-	"path"
-	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/playmean/guest/storage"
+	"github.com/playmean/guest/workspace"
 )
 
 type GetWorkspaceResponse struct {
 	Description string               `json:"description"`
 	Variables   map[string]string    `json:"variables"`
 	Tree        []WorkspaceTreeEntry `json:"tree"`
+}
+
+type OpenWorkspaceRequest struct {
+	Path string `json:"path"`
 }
 
 type WorkspaceTreeEntryType string
@@ -31,65 +33,51 @@ type WorkspaceTreeEntry struct {
 
 func (s *Server) methodGetWorkspace(c *fiber.Ctx) error {
 	if s.workspace == nil {
-		c.JSON(ServerError{
-			Error: "no workspace",
+		return c.Status(http.StatusNotFound).JSON(ServerError{
+			Error: "no workspace loaded",
 		})
-
-		return c.SendStatus(404)
 	}
 
-	paths, err := storage.ScanDirectory(s.workspace.PathInfo.Dir, s.workspace.VirtualFs, &storage.ScanOptions{
-		Ignore:             []string{".git"},
-		IncludeDirectories: true,
-		MarkDirectories:    true,
-	})
-	if err != nil {
-		return c.SendStatus(http.StatusInternalServerError)
-	}
-
-	return c.JSON(GetWorkspaceResponse{
-		Description: s.workspace.Description,
-		Variables:   s.workspace.Variables,
-		Tree:        buildWorkspaceTree("", paths),
-	})
+	return s.sendWorkspaceInfo(c)
 }
 
-func buildWorkspaceTree(parentPath string, paths []string) []WorkspaceTreeEntry {
-	chidlrenEntries := make([]WorkspaceTreeEntry, 0)
-	lastDir := ""
+func (s *Server) methodOpenWorkspace(c *fiber.Ctx) error {
+	var err error
 
-	for _, entryPath := range paths {
-		if entryPath == parentPath {
-			continue
-		}
+	req := new(OpenWorkspaceRequest)
 
-		if !strings.HasPrefix(entryPath, parentPath) {
-			continue
-		}
-
-		if lastDir != "" && strings.HasPrefix(entryPath, lastDir) {
-			continue
-		}
-
-		if strings.HasSuffix(entryPath, "/") {
-			chidlrenEntries = append(chidlrenEntries, WorkspaceTreeEntry{
-				Path:     entryPath,
-				Title:    path.Base(entryPath),
-				Type:     "dir",
-				Children: buildWorkspaceTree(entryPath, paths),
-			})
-
-			lastDir = entryPath
-
-			continue
-		}
-
-		chidlrenEntries = append(chidlrenEntries, WorkspaceTreeEntry{
-			Path:  entryPath,
-			Title: path.Base(entryPath),
-			Type:  "file",
+	err = c.BodyParser(req)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(ServerError{
+			Error: "cannot parse request",
 		})
 	}
 
-	return chidlrenEntries
+	if req.Path == "" {
+		return c.Status(http.StatusBadRequest).JSON(ServerError{
+			Error: "path must not be empty",
+		})
+	}
+
+	s.workspace, err = workspace.FromStorage("git", req.Path)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(ServerError{
+			Error: "cannot load workspace",
+		})
+	}
+
+	return s.sendWorkspaceInfo(c)
+}
+
+func (s *Server) methodCreateWorkspace(c *fiber.Ctx) error {
+	var err error
+
+	s.workspace, err = workspace.NewWorkspace()
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(ServerError{
+			Error: "cannot create workspace",
+		})
+	}
+
+	return s.sendWorkspaceInfo(c)
 }

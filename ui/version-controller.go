@@ -1,6 +1,8 @@
 package ui
 
 import (
+	"net/http"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,7 +13,7 @@ type GetVersionResponse struct {
 var VersionHash = "dev"
 
 func (s *Server) methodGetVersion(c *fiber.Ctx) error {
-	return c.JSON(GetVersionResponse{
+	return c.Status(http.StatusOK).JSON(GetVersionResponse{
 		App: VersionHash,
 	})
 }

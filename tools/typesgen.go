@@ -13,9 +13,10 @@ func main() {
 	converter.CreateInterface = true
 	converter.BackupDir = ""
 	converter.Prefix = "Api"
+	converter.Add(ui.ServerError{})
 	converter.Add(ui.GetVersionResponse{})
 	converter.Add(ui.GetWorkspaceResponse{})
-	converter.Add(ui.ServerError{})
+	converter.Add(ui.OpenWorkspaceRequest{})
 
 	err := converter.ConvertToFile(path.Join("ui/frontend/src/types/api.ts"))
 	if err != nil {
