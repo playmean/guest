@@ -7,4 +7,11 @@ export const shortcuts: Record<Shortcuts, ShortcutInfo> = {
         label: 'Return',
         icon: IconOutlineKeyboardReturn,
     },
+    'ctrl+return': {
+        label: 'Ctrl + ',
+        icon: IconOutlineKeyboardReturn,
+    },
+    'ctrl+p': {
+        label: 'Ctrl + P',
+    },
 };
