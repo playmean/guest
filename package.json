@@ -41,6 +41,7 @@
         "unplugin-icons": "^0.14.5",
         "unplugin-vue-components": "^0.19.9",
         "vite": "^2.9.12",
+        "vite-plugin-fonts": "^0.6.0",
         "vue-tsc": "^0.38.1"
     },
     "husky": {

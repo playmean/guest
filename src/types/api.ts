@@ -1,6 +1,9 @@
 /* Do not change, this code is generated from Golang structs */
 
 
+export interface ApiServerError {
+    error: string;
+}
 export interface ApiGetVersionResponse {
     app: string;
 }
@@ -15,6 +18,6 @@ export interface ApiGetWorkspaceResponse {
     variables: {[key: string]: string};
     tree: ApiWorkspaceTreeEntry[];
 }
-export interface ApiServerError {
-    error: string;
+export interface ApiOpenWorkspaceRequest {
+    path: string;
 }

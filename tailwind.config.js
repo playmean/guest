@@ -10,6 +10,9 @@ module.exports = {
                 'guest-slate': 'hsl(230, 6%, 20%)',
                 'guest-accent': 'hsl(253, 52%, 58%)',
             },
+            fontFamily: {
+                roboto: ['Roboto'],
+            },
         },
     },
     plugins: [],
