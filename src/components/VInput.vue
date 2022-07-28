@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+
 import { useVModel } from '@vueuse/core';
 
 import ShortcutHint from './Shortcut/ShortcutHint.vue';
@@ -6,7 +8,7 @@ import { Shortcuts } from './Shortcut/types';
 
 const props = defineProps<{
     modelValue: string;
-    label?: string;
+    label?: Component | string;
     placeholder?: string;
     shortcut?: Shortcuts;
 }>();
@@ -16,16 +18,17 @@ const localValue = useVModel(props, 'modelValue');
 
 <template>
     <div class="relative flex items-center">
-        <label v-if="label" class="flex flex-row">
+        <label v-if="label" class="flex flex-row w-full">
             <div
                 class="flex items-center px-2 border border-r-0 rounded-l-sm border-guest-light text-sm text-zinc-400 select-none"
             >
-                {{ label }}
+                <span v-if="typeof label === 'string'">{{ label }}</span>
+                <component v-else :is="label" />
             </div>
             <input
                 v-model="localValue"
                 type="text"
-                class="input rounded-l-none border-t border-b"
+                class="guest-control !rounded-l-none border-t border-b"
                 :placeholder="placeholder"
             />
         </label>
@@ -33,7 +36,7 @@ const localValue = useVModel(props, 'modelValue');
             v-else
             v-model="localValue"
             type="text"
-            class="input border"
+            class="guest-control border"
             :placeholder="placeholder"
         />
         <div
@@ -44,9 +47,3 @@ const localValue = useVModel(props, 'modelValue');
         </div>
     </div>
 </template>
-
-<style lang="scss" scoped>
-.input {
-    @apply bg-guest-light px-3 py-2 rounded-sm outline-none border-transparent focus:border-guest-accent placeholder:text-zinc-600 placeholder:text-sm;
-}
-</style>
