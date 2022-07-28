@@ -15,3 +15,9 @@ body {
 
     @apply bg-guest-dark text-white;
 }
+
+@layer components {
+    .guest-control {
+        @apply w-full bg-guest-light px-3 h-8 rounded-sm outline-none border-transparent focus:border-guest-accent placeholder:text-zinc-600 placeholder:text-sm transition-colors;
+    }
+}
