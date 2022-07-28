@@ -4,5 +4,5 @@ export declare type Shortcuts = 'return';
 
 export declare interface ShortcutInfo {
     label: string;
-    icon: Component;
+    icon?: Component;
 }

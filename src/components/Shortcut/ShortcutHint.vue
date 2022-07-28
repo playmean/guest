@@ -10,6 +10,10 @@ defineProps<{
 <template>
     <template v-if="shortcuts[shortcut]">
         {{ shortcuts[shortcut].label }}
-        <component :is="shortcuts[shortcut].icon" class="ml-1 mt-0.5 text-[0.6rem]" />
+        <component
+            v-if="shortcuts[shortcut].icon"
+            :is="shortcuts[shortcut].icon"
+            class="ml-1 mt-0.5 text-[0.6rem]"
+        />
     </template>
 </template>
